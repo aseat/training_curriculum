@@ -14,7 +14,7 @@ class CalendarsController < ApplicationController
 
   private
 
-  def plan_params
+  def plan_params #全角スネークケースになっていた
     params.require(:calendars).permit(:date, :plan)
   end
 
