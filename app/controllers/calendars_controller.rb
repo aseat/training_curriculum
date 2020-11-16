@@ -2,11 +2,24 @@ class CalendarsController < ApplicationController
   
   # １週間のカレンダーと予定が表示されるページ
   def index
+
+    get_week
+
+
+    get_week #スネークケース挿入
+
+    @plan = Plan.new
+  end
+
+
+  # 予定の保存
+
     get_week
     @plan = Plan.new
   end
 
-  # 予定の保存
+  # 予定の保存 
+
   def create
     Plan.create(plan_params)
     redirect_to action: :index
@@ -14,11 +27,23 @@ class CalendarsController < ApplicationController
 
   private
 
+
   def plan_params
     params.require(:plan).permit(:date, :plan)
   end
 
   def get_week
+
+ def plan_params #全角スネークケースになっていた
+    params.require(:calendars).permit(:date, :plan)
+  end
+
+
+  def get_week #スネークケース挿入
+
+  def get_week
+
+
     wdays = ['(日)','(月)','(火)','(水)','(木)','(金)','(土)']
 
     
@@ -36,12 +61,16 @@ class CalendarsController < ApplicationController
       plan = plans.map do |plan|
         today_plans.push(plan.plan) if plan.date == @todays_date + x
       end
+
       wday_num = Date.today.wday
       #もしもwday_numが7以上であれば、7を引く
       if wday_num > 8
         wday_num = wday_num - 7
       end
       days = { month: (@todays_date + x).month, date: (@todays_date+x).day, plans: today_plans, wday: wdays[0 + x]}
+
+      days = { month: (@todays_date + x).month, date: (@todays_date+x).day, plans:  today_plans}
+
       @week_days.push(days)
     end
   
