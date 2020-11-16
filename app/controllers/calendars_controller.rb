@@ -4,10 +4,6 @@ class CalendarsController < ApplicationController
   def index
 
     get_week
-
-
-    get_week #スネークケース挿入
-
     @plan = Plan.new
   end
 
@@ -28,18 +24,13 @@ class CalendarsController < ApplicationController
   private
 
 
-  def plan_params
-    params.require(:plan).permit(:date, :plan)
-  end
 
-  def get_week
-
- def plan_params #全角スネークケースになっていた
+ def plan_params 
     params.require(:calendars).permit(:date, :plan)
   end
 
 
-  def get_week #スネークケース挿入
+  
 
   def get_week
 
@@ -68,8 +59,7 @@ class CalendarsController < ApplicationController
         wday_num = wday_num - 7
       end
       days = { month: (@todays_date + x).month, date: (@todays_date+x).day, plans: today_plans, wday: wdays[0 + x]}
-
-      days = { month: (@todays_date + x).month, date: (@todays_date+x).day, plans:  today_plans}
+      
 
       @week_days.push(days)
     end
